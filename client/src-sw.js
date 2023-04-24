@@ -27,4 +27,26 @@ warmStrategyCache({
 registerRoute(({ request }) => request.mode === 'navigate', pageCache);
 
 // TODO: Implement asset caching
+const assetCache = new CacheFirst({
+  cacheName: 'asset-cache',
+  plugins: [
+    new CacheableResponsePlugin({
+      statuses: [0, 200],
+    }),
+    new ExpirationPlugin({
+      maxAgeSeconds: 30 * 24 * 60 * 60,
+    }),
+  ],
+});
+
+// Wrap routes with offline fallback
+registerRoute(
+  ({ url }) => url.origin === self.location.origin && /\.(js|css|png|jpg|jpeg|svg|gif)$/.test(url.pathname),
+  offlineFallback({ strategy: assetCache })
+);
+registerRoute(
+  ({ request }) => request.mode === 'navigate',
+  offlineFallback({ strategy: pageCache })
+);
+
 registerRoute();
