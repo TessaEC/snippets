@@ -9,7 +9,7 @@ A single-page, PWA app text editor that implements methods for getting and stori
 * [Credits](#credits)
 
 ## Description
-a text editor that runs in the browser. The app is a single-page application that meets the PWA criteria. Additionally, it feature a number of data persistence techniques that serve as redundancy in case one of the options is not supported by the browser. The application also function offline.
+a text editor that runs in the browser. The app is a single-page application that meets the PWA criteria. Additionally, it features a number of data techniques that serve as redundancy in case one of the options is not supported by the browser. The application also functions offline.
 
 ## Installation
 
@@ -20,12 +20,12 @@ npm i
 ```
 
 ## Usage
-To utilize the application via command line, execute the subsequent command:
+To utilize the application via command line, execute the following:
 
-* Launch your terminal or bash and navigate to the root directory of the repository.
-* Trigger the bundling of front-end code by typing ```npm run build``` on the command line.
-* Initiate the server by entering ```npm run start``` in the command line.
-* Proceed to your local host's designated port.
+* Navigate to the root directory of the repository.
+* Bundle the front-end code: ```npm run build``` on the command line.
+* Start the server: ```npm run start``` in the command line.
+* Check localhosts port
 * Click on the "Install" button.
 
 ## Credits

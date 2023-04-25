@@ -39,7 +39,7 @@ export const getDb = async () => {
   // wait for transaction to complete
   const result = await request;
   console.log('Data retrieved from db', result);
-  return result;
+  return result.value;
 };
 
 initdb();
