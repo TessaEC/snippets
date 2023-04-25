@@ -1,12 +1,14 @@
-const { offlineFallback, warmStrategyCache } = require('workbox-recipes');
-const { CacheFirst } = require('workbox-strategies');
+const { warmStrategyCache } = require('workbox-recipes');
+const { StaleWhileRevalidate, CacheFirst } = require('workbox-strategies');
 const { registerRoute } = require('workbox-routing');
 const { CacheableResponsePlugin } = require('workbox-cacheable-response');
 const { ExpirationPlugin } = require('workbox-expiration');
 const { precacheAndRoute } = require('workbox-precaching/precacheAndRoute');
 
+// eslint-disable-next-line no-underscore-dangle
 precacheAndRoute(self.__WB_MANIFEST);
 
+// create a cache for pages
 const pageCache = new CacheFirst({
   cacheName: 'page-cache',
   plugins: [
@@ -19,6 +21,7 @@ const pageCache = new CacheFirst({
   ],
 });
 
+// warm the page cache
 warmStrategyCache({
   urls: ['/index.html', '/'],
   strategy: pageCache,
@@ -26,27 +29,19 @@ warmStrategyCache({
 
 registerRoute(({ request }) => request.mode === 'navigate', pageCache);
 
-// TODO: Implement asset caching
-const assetCache = new CacheFirst({
-  cacheName: 'asset-cache',
-  plugins: [
-    new CacheableResponsePlugin({
-      statuses: [0, 200],
-    }),
-    new ExpirationPlugin({
-      maxAgeSeconds: 30 * 24 * 60 * 60,
-    }),
-  ],
-});
-
-// Wrap routes with offline fallback
 registerRoute(
-  ({ url }) => url.origin === self.location.origin && /\.(js|css|png|jpg|jpeg|svg|gif)$/.test(url.pathname),
-  offlineFallback({ strategy: assetCache })
-);
+  ({ request }) => request.mode === 'navigate', pageCache);
+  
+// create a cache for assets
 registerRoute(
-  ({ request }) => request.mode === 'navigate',
-  offlineFallback({ strategy: pageCache })
+  ({ request }) => ['style', 'script', 'worker'].includes(request.destination),
+  new StaleWhileRevalidate({
+    cacheName: 'asset-cache',
+    plugins: [
+      new CacheableResponsePlugin({
+        statuses: [0, 200],
+      }),
+    ],
+  }),
 );
 
-registerRoute();

@@ -26,11 +26,13 @@ module.exports = () => {
       }),
       // Create a manifest file for PWA
       new WebpackPwaManifest({
+        fingerprints: false,
+        inject: true,
         name: 'JATE',
         short_name: 'JATE',
         description: 'Just Another Text Editor',
-        background_color: '#01579B',
-        theme_color: '#FFFFFF',
+        background_color: '#631d3b',
+        theme_color: '#839bde',
         start_url: './',
         publicPath: './',
         icons: [
