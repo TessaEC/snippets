@@ -8,6 +8,8 @@ A single-page, PWA app text editor that implements methods for getting and stori
 * [Usage](#usage)
 * [Credits](#credits)
 
+![image](https://user-images.githubusercontent.com/118077000/234381870-56ef1068-9358-40f6-ba23-ba987adcbb9a.png)
+
 ## Description
 a text editor that runs in the browser. The app is a single-page application that meets the PWA criteria. Additionally, it features a number of data techniques that serve as redundancy in case one of the options is not supported by the browser. The application also functions offline.
 
@@ -28,5 +30,11 @@ To utilize the application via command line, execute the following:
 * Check localhosts port
 * Click on the "Install" button.
 
-## Credits
+### Credits
 starter code provided by [Xandromus](https://github.com/coding-boot-camp/cautious-meme)
+
+### GitHub URL:
+https://github.com/TessaEC/snippets
+
+### Heroku URL:
+https://snippets.herokuapp.com/
